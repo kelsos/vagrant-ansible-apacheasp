@@ -1,0 +1,17 @@
+---
+- name: Install postgres
+  apt: name={{ item }} state=present
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - python-psycopg2
+
+- name: create the default postgresql user
+  postgresql_user:
+    name=dev
+    password=123
+    login_user=postgres
+    role_attr_flags=CREATEDB,SUPERUSER
+  sudo_user: postgres
+  notify:
+    - restart postgresql

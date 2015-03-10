@@ -1,0 +1,33 @@
+<VirtualHost *:80>
+    ServerName {{ server_name }}
+
+    ## Vhost docroot
+    DocumentRoot {{ document_root }}
+
+    <Directory {{ document_root }}>
+        Options Indexes FollowSymlinks MultiViews
+        AllowOverride All
+        Require all granted
+        <Files ~ (\.asp)>
+            SetHandler  perl-script
+            PerlHandler Apache::ASP
+            PerlSetVar  Global .
+            PerlSetVar  StateDir /tmp/asp
+            PerlSetVar Debug 3
+            PerlSetVar SessionTimeout 60
+        </Files>
+    </Directory>
+
+    ## Logging
+    ErrorLog "${APACHE_LOG_DIR}/{{ server_name }}-error.log"
+    ServerSignature Off
+    CustomLog "${APACHE_LOG_DIR}/{{ server_name }}-access.log" combined
+
+    ## Server aliases
+    ServerAlias {{ server_alias }}
+
+    ## SetEnv/SetEnvIf for environment variables
+    SetEnv APP_ENV dev
+
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://127.0.0.1:9000/{{ document_root }}/$1
+</VirtualHost>

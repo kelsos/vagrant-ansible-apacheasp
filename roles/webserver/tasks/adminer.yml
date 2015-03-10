@@ -1,0 +1,16 @@
+---
+  - name: Install adminer package
+    apt: name=adminer state=present
+
+  - name: Copy adminer configuration
+    copy:
+      src=adminer.conf
+      dest=/etc/apache2/conf-available/adminer.conf
+      mode=0644
+  - name: Enable adminer configuration
+    file:
+      src=/etc/apache2/conf-available/adminer.conf
+      dest=/etc/apache2/conf-enabled/adminer.conf
+      state=link
+    notify:
+      reload apache

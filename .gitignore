@@ -1,0 +1,4 @@
+# Webfolder is used only for mapping with apache2
+web
+# Vagrant folder should not be part of the repository
+.vagrant

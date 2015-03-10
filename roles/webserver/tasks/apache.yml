@@ -1,0 +1,35 @@
+---
+- name: install apache and modperl
+  apt: name={{ item }} state=present
+  with_items:
+    - apache2
+    - libapache2-mod-perl2
+
+- name: Enable required apache modules
+  apache2_module: state=present name={{item}}
+  with_items:
+    - perl
+    - proxy
+    - proxy_fcgi
+
+- name: Copy new virtual host
+  template:
+    src=virtual-hosts.conf.j2
+    dest=/etc/apache2/sites-available/25-devhost.conf
+  notify:
+    - reload apache
+
+- name: Remove the default virtual host
+  file:
+    path=/etc/apache2/sites-enabled/000-default.conf
+    state=absent
+  notify:
+    - reload apache
+
+- name: Enable the new development virtual host
+  file:
+    src=/etc/apache2/sites-available/25-devhost.conf
+    dest=/etc/apache2/sites-enabled/25-devhost.conf
+    state=link
+  notify:
+    - reload apache

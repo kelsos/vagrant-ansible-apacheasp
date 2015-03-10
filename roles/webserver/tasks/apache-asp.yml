@@ -1,0 +1,27 @@
+---
+- name: "Checkout Apache::ASP from subversion"
+  subversion:
+    repo=svn://svn.code.sf.net/p/apache-asp/code/trunk
+    dest=/tmp/apache-asp
+
+- name: "Install prerequisites"
+  shell: cpanm {{ item }}
+  with_items:
+    - MLDBM
+    - MLDBM::Sync
+  sudo: yes
+
+- name: "Perl Makefile.PL"
+  shell: perl Makefile.PL chdir=/tmp/apache-asp
+
+- name: "Make the Apache::ASP module"
+  shell: make chdir=/tmp/apache-asp
+
+- name: "Run Apache::ASP tests"
+  shell: make test chdir=/tmp/apache-asp
+
+- name: "Install Apache::ASP"
+  shell: make install chdir=/tmp/apache-asp
+  sudo: yes
+  notify:
+    - reload apache
