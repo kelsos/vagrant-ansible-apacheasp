@@ -1,7 +1,7 @@
 Vagrant - Ansible Apache::ASP configuration
 =======
 
-A configuration to provide a development virtual machine with [Apache::ASP(http://www.apache-asp.org/)] support and PostgreSQL used for the database part.
+A configuration to provide a development virtual machine with [Apache::ASP](http://www.apache-asp.org/) support and PostgreSQL used for the database part.
 The virtual machine has adminer installed to manage the database.
 
 License
