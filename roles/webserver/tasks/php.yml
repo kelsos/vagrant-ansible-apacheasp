@@ -1,13 +1,13 @@
 ---
-- name: install php
+- name: Install php5 with some required modules
   apt: name={{item}} state=present
   with_items:
     - php5-fpm
     - php5-gd
     - php5-cli
     - php5-pgsql
-- name: Enable the new development virtual host
-  copy:
+- name:
+  copy: Update the configuration for php5-fpm
     src=www.conf
     dest=/etc/php5/fpm/pool.d/www.conf
     mode=0644
