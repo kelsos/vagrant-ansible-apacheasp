@@ -5,6 +5,7 @@
     - postgresql
     - postgresql-contrib
     - python-psycopg2
+    - libpq-dev
 
 - name: Create the default PostgreSQL user 'u:dev & p:123'
   postgresql_user:

@@ -5,13 +5,28 @@
     dest=/home/vagrant/apache-asp
   register: aspcheckout
 
-- name: "Install the Prerequisites for Apache::ASP"
+- name: "Install the Prerequisites for Apache::ASP and development"
   shell: cpanm {{ item }}
   with_items:
     - MLDBM
     - MLDBM::Sync
+    - DateTime
+    - DBI
+    - JSON
+    - Archive::Zip
+    - Imager
+    - Image::Size
+    - Data::Pageset
+    - Spreadsheet::ParseExcel
+    - Cache::Memcached::Fast
+    - Date::Calc
+    - Net::DNS
+    - File::Slurp
   sudo: yes
   when: aspcheckout.changed
+
+- name: "Install Perl Module DBD::Pg from aptitude"
+  apt: name=libdbd-pg-perl state=present
 
 - name: "Run perl Makefile.PL"
   shell: perl Makefile.PL chdir=/home/vagrant/apache-asp
