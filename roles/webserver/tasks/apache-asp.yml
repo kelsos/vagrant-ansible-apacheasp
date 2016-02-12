@@ -19,9 +19,15 @@
     - Data::Pageset
     - Spreadsheet::ParseExcel
     - Cache::Memcached::Fast
+    - IO::Socket::SSL
+    - IO::Socket::SSL::Utils
+    - Net::SSLeay
     - Date::Calc
     - Net::DNS
     - File::Slurp
+    - YAML
+    - LWP::UserAgent
+    - Mail::Sender
   sudo: yes
   when: aspcheckout.changed
 
