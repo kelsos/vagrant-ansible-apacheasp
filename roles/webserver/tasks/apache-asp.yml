@@ -28,6 +28,7 @@
     - YAML
     - LWP::UserAgent
     - Mail::Sender
+    - App::Daemon
   sudo: yes
   when: aspcheckout.changed
 
