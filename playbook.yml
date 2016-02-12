@@ -4,7 +4,7 @@
     become: true
 
     vars:
-      document_root: /vagrant/web
+      document_root: /home/vagrant/public
       server_name: machine.dev
       server_alias: www.machine.dev
 
